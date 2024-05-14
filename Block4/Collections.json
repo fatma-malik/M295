@@ -1,0 +1,128 @@
+[
+  {
+    "v": 2,
+    "name": "4.1",
+    "folders": [],
+    "requests": [
+      {
+        "v": "4",
+        "endpoint": "https://zli.ch",
+        "name": "zli",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": []
+      },
+      {
+        "v": "4",
+        "endpoint": "https://zli.ch/null",
+        "name": "zli404",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": []
+      },
+      {
+        "v": "4",
+        "endpoint": "https://picsum.photos/536/354",
+        "name": "bild",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": []
+      },
+      {
+        "v": "4",
+        "endpoint": "https://pokeapi.co/api/v2/pokemon/ditto",
+        "name": "pokemon",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": []
+      },
+      {
+        "v": "4",
+        "endpoint": "https://cat-fact.herokuapp.com/facts",
+        "name": "catfact",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": []
+      },
+      {
+        "v": "4",
+        "endpoint": "https://jsonplaceholder.typicode.com/posts",
+        "name": "posts",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": []
+      }
+    ],
+    "headers": [],
+    "auth": {
+      "authType": "none",
+      "authActive": true
+    }
+  }
+]
