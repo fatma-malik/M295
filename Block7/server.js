@@ -1,33 +1,26 @@
 const express = require('express');
-const basicAuth = require('basic-auth');
-const dotenv = require('dotenv');
-
-dotenv.config();
-
 const app = express();
 const port = 3000;
 
-const auth = (req, res, next) => {
-  const user = basicAuth(req);
-  const username = process.env.USERNAME;
-  const password = process.env.PASSWORD;
-
-  if (user && user.name === username && user.pass === password) {
-    return next();
-  } else {
-    res.set('WWW-Authenticate', 'Basic realm="example"');
-    return res.status(401).send('Authentication required.');
-  }
-};
-
-app.get('/public', (req, res) => {
-  res.send('This is a public endpoint.');
+app.get('/public', (request, response) => {
+  response.send('Public endpoint');
 });
 
-app.get('/private', auth, (req, res) => {
-  res.send('This is a private endpoint.');
+app.get('/private', (request, response) => {
+  if (!request.headers.authorization) {
+    response.status(401).header({
+      "WWW-Authenticate": 'Basic realm="Authenticate yourself!"'
+    }).send();
+  } else {
+    const credentials = atob(request.headers.authorization.replace("Basic ", "")).split(":");
+    if (credentials[0] === "zli" && credentials[1] === "zli1234") {
+      response.send("Private endpoint");
+    } else {
+      response.send(401);
+    }
+  }
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Auth app listening on port ${port}`);
 });
