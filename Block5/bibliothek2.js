@@ -11,9 +11,20 @@ let books = [
     { isbn: "3579111315", title: "hunger games", year: 2024, author: "niemand" }
 ];
 
+let lends = [];
+
 const validateBook = (req, res, next) => {
-    const { isbn, title, year, author } = req.body;
-    if (!isbn || !title || !year || !author) {
+    const { isbn } = req.body;
+    const bookExists = books.some(book => book.isbn === isbn);
+    if (!bookExists) {
+        return res.status(404).json({ error: "Book not found" });
+    }
+    next();
+};
+
+const validateLend = (req, res, next) => {
+    const { customer_id, isbn } = req.body;
+    if (!customer_id || !isbn) {
         return res.status(422).json({ error: "Missing required fields" });
     }
     next();
@@ -56,18 +67,39 @@ app.delete("/books/:isbn", (req, res) => {
     res.sendStatus(204);
 });
 
-app.patch("/books/:isbn", validateBook, (req, res) => {
-    const { isbn } = req.params;
-    const updatedBookIndex = books.findIndex(book => book.isbn === isbn);
-    if (updatedBookIndex !== -1) {
-        books[updatedBookIndex] = { ...books[updatedBookIndex], ...req.body };
-        res.json(books[updatedBookIndex]);
+app.get("/lends", (req, res) => {
+    res.json(lends);
+});
+
+app.get("/lends/:id", (req, res) => {
+    const lend = lends.find(lend => lend.id === req.params.id);
+    if (lend) {
+        res.json(lend);
     } else {
-        res.status(404).json({ error: "Book not found" });
+        res.status(404).json({ error: "Lend not found" });
     }
+});
+
+app.post("/lends", validateLend, (req, res) => {
+    const { customer_id, isbn } = req.body;
+    const lend = {
+        id: Date.now().toString(),
+        customer_id,
+        isbn,
+        borrowed_at: new Date().toISOString(),
+        returned_at: null
+    };
+    lends.push(lend);
+    res.status(201).json(lend);
+});
+
+app.delete("/lends/:id", (req, res) => {
+    const { id } = req.params;
+    lends = lends.filter(lend => lend.id !== id);
+    res.sendStatus(204);
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log("Server is running on port ${PORT}");
+    console.log(`Server is running on port ${PORT}`);
 });
